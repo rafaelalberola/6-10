@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="es">
+<head>
+<base href="/">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#fbf8f5">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="referrer" content="no-referrer">
+<title>6 · 10</title>
+<meta property="og:title" content="Para ti">
+<meta property="og:description" content="6 de octubre de 2026">
+<meta property="og:image" content="https://iris.rafabox.cloud/og.jpg">
+<meta property="og:type" content="website">
+<link rel="icon" href="icono.svg" type="image/svg+xml">
+<link rel="icon" href="icono.png" sizes="180x180">
+<link rel="apple-touch-icon" href="icono.png">
+<link rel="preload" href="fuentes/Inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="fuentes/fuentes.css">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body class="cerrado">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="lazo" viewBox="0 0 64 42">
+      <g fill="var(--lazo-relleno)" stroke="var(--lazo-trazo)" stroke-width="1.1" stroke-linejoin="round" stroke-linecap="round">
+        <path d="M30.6 21.4 22.4 37.6l4.4-1.6 2.2 3.9 4.1-17.6Z"/>
+        <path d="M33.4 21.4 41.6 37.6l-4.4-1.6-2.2 3.9-4.1-17.6Z"/>
+        <path d="M30.5 18.5C25 10.5 15 4.5 9.5 7.5c-4 2.3-3.3 10.1 1.5 12.7 5 2.7 13 1.4 19.5 0Z"/>
+        <path d="M33.5 18.5C39 10.5 49 4.5 54.5 7.5c4 2.3 3.3 10.1-1.5 12.7-5 2.7-13 1.4-19.5 0Z"/>
+        <rect x="28.6" y="15.2" width="6.8" height="8.4" rx="2.6"/>
+      </g>
+      <path d="M13.5 11.2c4.4 1.3 9.6 4.2 14.2 7.6M50.5 11.2c-4.4 1.3-9.6 4.2-14.2 7.6" fill="none" stroke="var(--lazo-trazo)" stroke-width=".7" stroke-linecap="round" opacity=".55"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div id="cargando" class="cargando" aria-label="Cargando"><span></span></div>
+
+<main id="app" hidden>
+  <section id="portada" class="portada">
+    <div class="instantaneas" id="instantaneas" aria-label="Tres fotos por revelar"></div>
+    <p class="rotulo saludo" id="p-saludo"></p>
+    <h1 id="p-titulo"></h1>
+    <p class="rotulo fecha" id="p-fecha"></p>
+    <p class="solo-lector" id="p-lema"></p>
+    <div class="pista-zona">
+      <button id="pista" class="pista" type="button"></button>
+      <button id="flecha" class="flecha" type="button" aria-label="Bajar" hidden></button>
+    </div>
+    <div class="cintas" id="cintas" aria-hidden="true"></div>
+  </section>
+
+  <section id="apertura" class="apertura"></section>
+  <section id="datos" class="datos"></section>
+  <div id="periodos"></div>
+
+  <section id="carta" class="carta">
+    <article class="hoja" id="hoja"><svg class="lazo-hoja" aria-hidden="true"><use href="#lazo"/></svg></article>
+    <div id="voz" class="voz"></div>
+  </section>
+
+  <section id="universo" class="universo">
+    <div class="universo-texto">
+      <div class="mazo" id="mazo" role="button" tabindex="0" aria-label="Pasar foto"></div>
+      <p class="rotulo">Para terminar</p>
+      <h2 id="u-titulo"></h2>
+      <p id="u-texto"></p>
+      <button id="viajar" class="boton claro" type="button"></button>
+    </div>
+  </section>
+</main>
+
+<div id="visor" class="visor" hidden>
+  <button class="cerrar" type="button" aria-label="Cerrar">&times;</button>
+  <div class="v-medio"></div>
+  <button class="v-ant" type="button" aria-label="Anterior">&lsaquo;</button>
+  <button class="v-sig" type="button" aria-label="Siguiente">&rsaquo;</button>
+  <p class="v-pie"></p>
+</div>
+
+<div id="tunel" class="tunel" hidden>
+  <canvas id="lienzo" aria-label="Todas sus fotos en un túnel donde la profundidad es el tiempo"></canvas>
+  <div class="t-marca"><span class="t-icono"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5C6.2 16.3 2.5 12.9 2.5 8.9 2.5 6 4.7 3.8 7.4 3.8c1.9 0 3.6 1 4.6 2.6 1-1.6 2.7-2.6 4.6-2.6 2.7 0 4.9 2.2 4.9 5.1 0 4-3.7 7.4-9.5 11.6z"/></svg></span><span id="t-marca"></span></div>
+  <div id="etiquetas" aria-hidden="true"></div>
+  <div id="regla" role="slider" tabindex="0" aria-label="Viajar en el tiempo" aria-valuetext="">
+    <canvas id="histograma"></canvas>
+    <div id="anios"></div>
+    <div id="marca"><span></span></div>
+  </div>
+  <div id="punta" hidden></div>
+  <button class="cerrar t-cerrar" type="button" aria-label="Cerrar">&times;</button>
+  <section class="ayuda" hidden>
+    <button class="ayuda-cerrar" type="button" aria-label="Cerrar la ayuda">&times;</button>
+    <p class="ayuda-titulo"></p>
+    <ul></ul>
+  </section>
+  <div class="vf-velo" hidden></div>
+  <div class="vf-caja" role="img" hidden><div class="vf-previa"></div><div class="vf-medio"></div></div>
+  <aside class="pf tf" hidden aria-label="Detalles de la foto">
+    <div class="pf-nav">
+      <div class="tf-grupo">
+        <button type="button" class="tf-bt tf-o tf-i pf-ant" aria-label="Foto anterior" aria-keyshortcuts="ArrowLeft"><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button>
+        <button type="button" class="tf-bt tf-o tf-i pf-sig" aria-label="Foto siguiente" aria-keyshortcuts="ArrowRight"><svg viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button>
+      </div>
+    </div>
+    <button type="button" class="tf-bt tf-g tf-i pf-cerrar" aria-label="Cerrar"><svg viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+    <div class="pf-cuerpo">
+      <h2 class="tf-fecha"></h2>
+      <dl class="tf-datos"></dl>
+      <div class="tf-acciones"></div>
+    </div>
+  </aside>
+  <div class="hf-velo" hidden></div>
+  <section class="hf tf" hidden role="dialog" aria-label="Detalles de la foto">
+    <div class="hf-asa" aria-hidden="true"></div>
+    <div class="hf-cab"><h2 class="tf-fecha"></h2></div>
+    <div class="hf-cuerpo">
+      <div class="hf-foto"><div class="hf-capa"></div></div>
+      <dl class="tf-datos"></dl>
+      <div class="tf-acciones"></div>
+    </div>
+  </section>
+</div>
+
+<div id="mensaje" class="mensajito flotante" role="status" aria-live="polite"></div>
+<button id="musica" class="musica" type="button" aria-label="Música" hidden>&#9835;</button>
+
+<div id="error" class="error" hidden>
+  <p>Este enlace no está completo.<br>Ábrelo desde el mensaje original.</p>
+</div>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
